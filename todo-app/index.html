@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Stylesheets -->
+	<link rel="stylesheet" type="text/css" href="views/todo-list-view.css" />
+	
+	<!-- App Setup -->
+	<script src="../lib/app/app.js"></script>
+	<script src="main.js"></script>
+	
+	<!-- Views -->
+	<script src="../lib/view/mustache.js"></script>
+	<script src="../lib/view/i-view.js"></script>
+	<script src="../lib/view/i-view-data.js"></script>
+	<script src="../lib/view/html-view.js"></script>
+	<script src="views/todo-list-view.js"></script>
+	
+	<!-- Use cases -->
+	<script src="../lib/usecase/i-use-case.js"></script>
+	<script src="../lib/usecase/usecase-base.js"></script>
+	<script src="view-todo-list.js"></script>
+	<script src="get-todo-list.js"></script>
+	
+	<!-- Entities -->
+	<script src="../lib/frameworks/jquery.js"></script>
+	<script src="../lib/frameworks/underscore-min.js"></script>
+	<script src="../lib/web/xhr.js"></script>
+	<script src="../lib/storage/web-storage.js"></script>
+	<script src="entities/todo-list.js"></script>
+	<script src="entities/todo-list-item.js"></script>
+	
+</head>
+<body>
+	<div id="todo-app"></div>
+</body>
+</html>
+<script>app.run();</script>
