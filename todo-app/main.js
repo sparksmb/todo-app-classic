@@ -5,19 +5,16 @@ app.main.run = function () {
 		xhr = app.entity.xhr.create(),
 		storage = app.entity.webStorage.create(),
 		todoListView = app.view.todoListView.create(xhr),
-		getTodoList = app.usecase.getTodoList.create(storage, app.entity.todoList);/*,
-		saveTodoList = app.usecase.saveTodoList.create(),
-		clearTodoList = app.usecase.clearTodoList.create(),
-		addTodoListItem = app.entity.addTodoListItem.create(),
-		completeTodoListItem = app.entity.completeTodoListItem.create();*/
+		todoList = app.entity.todoList,
+		getTodoList = app.usecase.getTodoList.create(storage, todoList),
+		saveTodoList = app.usecase.saveTodoList.create(storage, todoList),
+		addTodoListItem = app.usecase.addTodoListItem.create(todoList);
 	
 	viewTodoList = app.usecase.viewTodoList.create(
 		todoListView,
-		getTodoList/*,
+		getTodoList,
 		saveTodoList,
-		clearTodoList,
-		addTodoListItem,
-		completeTodoListItem*/
+		addTodoListItem
 	);
 	
 	viewTodoList.execute();

@@ -1,7 +1,26 @@
-/*global app, document, alert, FileReader */
+/*global app, $, document, alert, FileReader */
 app.view.todoListView = {
 	create: function (xhr, iViewData) {
 		'use strict';
+		
+		function sendAddItemEvent(text) {
+			$.event.trigger({
+				type: 'addTodoListItem',
+				text: text
+			});
+		}
+		
+		function initAddItem() {
+			$('#addItemTextbox').bind('keypress', function (e) {
+				if (e.keyCode === 13) {
+					sendAddItemEvent(this.value);
+				}
+			});
+		}
+		
+		function init() {
+			initAddItem();
+		}
 		
 		var viewData = iViewData || {
 				container_id: 'todo-app',
@@ -11,6 +30,10 @@ app.view.todoListView = {
 				}
 			},
 			todoListView = Object.create(app.view.htmlView.create(xhr, viewData));
+			
+		todoListView.initEventHandlers = function () {
+			init();
+		};
 		
 		return todoListView;
 	}

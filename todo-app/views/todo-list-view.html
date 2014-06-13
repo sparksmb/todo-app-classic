@@ -1,9 +1,13 @@
 <ul>
 	{{#todoList}}
 	<li>
-		<input type="checkbox" {{#isChecked}}checked{{/isChecked}} /> 
+		<input type="checkbox" {{#isCompleted}}checked{{/isCompleted}} /> 
 		<!--input type="checkbox" {{#isCompleted}}checked{{/isCompleted}} /--> 
 		<label>{{text}}</label>
 	</li>
 	{{/todoList}}
+	<li>
+		<input type="checkbox" disabled />
+		<input id="addItemTextbox" type="text" placeholder="What needs to be done?" />
+	</li>
 </ul>
