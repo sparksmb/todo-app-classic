@@ -4,7 +4,7 @@ app.view.todoListView = {
 		'use strict';
 		
 		function sendAddItemEvent(text) {
-			$.event.trigger({
+			$('#todo-app').trigger({
 				type: 'addTodoListItem',
 				text: text
 			});
@@ -20,6 +20,7 @@ app.view.todoListView = {
 		
 		function init() {
 			initAddItem();
+			$('#addItemTextbox').focus();
 		}
 		
 		var viewData = iViewData || {
