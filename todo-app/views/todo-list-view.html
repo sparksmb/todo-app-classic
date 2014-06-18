@@ -1,13 +1,43 @@
-<ul>
+<h1>Todo List</h1>
+<table class="todo-list">
+	<tr>
+		<td class="col col1 spine"></td>
+		<td class="col col2 spine"></td>
+	</tr>
+	
+	<tr>
+		<td class="col col1"></td>
+		<td class="col col2 status">
+			{{todoList.length}} items left
+			<a href="#edit">Edit</a>
+		</td>
+	</tr>
 	{{#todoList}}
-	<li>
-		<input type="checkbox" {{#isCompleted}}checked{{/isCompleted}} /> 
-		<!--input type="checkbox" {{#isCompleted}}checked{{/isCompleted}} /--> 
-		<label>{{text}}</label>
-	</li>
+	<tr>
+		<td class="col col1">
+			<input type="checkbox" {{#isCompleted}}checked{{/isCompleted}} />
+		</td>
+		<td class="col col2">
+			<label class="todo-text">{{text}}</label>
+		</td>
+	</tr>
 	{{/todoList}}
-	<li>
-		<input type="checkbox" disabled />
-		<input id="addItemTextbox" type="text" placeholder="What needs to be done?" />
-	</li>
-</ul>
+	
+	<tr>
+		<td class="col col1">
+			<input type="checkbox" disabled />
+		</td>
+		<td class="col col2">
+			
+			<input id="addItemTextbox" type="text" placeholder="What needs to be done?" />
+		</td>
+	</tr>
+		
+	<tr>
+		<td colspan="2" class="footer">
+			<div id="all-filter" class="filter"><a href="#all">All</a></div>
+			<div id="active-filter" class="filter"><a href="#active">Active</a></div>
+			<div id="completed-filter" class="filter"><a href="#completed">Completed</a></div>
+		</td>
+	</tr>
+</table>

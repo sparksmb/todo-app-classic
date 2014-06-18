@@ -18,6 +18,8 @@ app.view.todoListView = {
 			});
 		}
 		
+		
+		
 		function init() {
 			initAddItem();
 			$('#addItemTextbox').focus();
