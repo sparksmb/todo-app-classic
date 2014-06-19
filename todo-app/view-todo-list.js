@@ -1,10 +1,10 @@
 /*global app */
 app.usecase.viewTodoList = {
 	create: function (view,
-					  getTodoList,
-					  saveTodoList,
-					  todoListItemCreator,
-					  addTodoListItemCreator) {
+					   getTodoList,
+					   saveTodoList,
+					   todoListItemCreator,
+					   addTodoListItemCreator) {
 		'use strict';
 		var viewTodoList = Object.create(app.usecase.usecaseBase.create()),
 			addTodoListItem;
