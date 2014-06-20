@@ -47,6 +47,14 @@ app.entity.todoList = {
 			}
 		};
 		
+		todoList.markCompleted = function (index) {
+			todoList.items[index].markCompleted();
+		};
+		
+		todoList.markUncompleted = function (index) {
+			todoList.items[index].markUncompleted();
+		};
+		
 		return init();
 	}
 };

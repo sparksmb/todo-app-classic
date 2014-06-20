@@ -18,7 +18,15 @@ app.view.todoListView = {
 			});
 		}
 		
-		function initAddItem() {
+		function sendCompleteItemEvent(index, isChecked) {
+			$('#todo-app').trigger({
+				type: 'completeTodoListItem',
+				index: index,
+				isChecked: isChecked
+			});
+		}
+		
+		function bindAddItemAction() {
 			$('#addItemTextbox').bind('keypress', function (e) {
 				if (e.keyCode === 13) {
 					sendAddItemEvent(this.value);
@@ -26,12 +34,26 @@ app.view.todoListView = {
 			});
 		}
 		
+		function getIndexFromId(id) {
+			var tokens = id.split('-');
+			return parseInt(tokens[tokens.length - 1], 10);
+		}
+		
+		function bindMarkCompletedAction() {
+			$("input[type='checkbox']").click(function (e) {
+				var index = getIndexFromId(e.target.id),
+					isChecked = e.target.checked;
+				//alert(getIndexFromId(index) + ', ' + isChecked);
+				sendCompleteItemEvent(index, isChecked);
+			});
+		}
+		
 		function initMarkCompleted() {
 		}
 		
 		function init() {
-			initAddItem();
-			initMarkCompleted();
+			bindAddItemAction();
+			bindMarkCompletedAction();
 			$('#addItemTextbox').focus();
 		}
 		

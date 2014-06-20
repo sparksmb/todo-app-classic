@@ -9,6 +9,9 @@ app.entity.todoListItem = {
 			isCompleted: data.isCompleted || false,
 			markCompleted: function () {
 				todoListItem.isCompleted = true;
+			},
+			markUncompleted: function () {
+				todoListItem.isCompleted = false;
 			}
 		};
 		

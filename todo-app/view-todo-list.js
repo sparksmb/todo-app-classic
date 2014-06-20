@@ -4,10 +4,12 @@ app.usecase.viewTodoList = {
 					   getTodoList,
 					   saveTodoList,
 					   todoListItemCreator,
-					   addTodoListItemCreator) {
+					   addTodoListItemCreator,
+					   completeTodoListItemCreator) {
 		'use strict';
 		var viewTodoList = Object.create(app.usecase.usecaseBase.create()),
-			addTodoListItem;
+			addTodoListItem,
+			completeTodoListItem;
 		
 		function render() {
 			view.render();
@@ -20,15 +22,29 @@ app.usecase.viewTodoList = {
 			render();
 		}
 		
-		function initEventHandlers() {
-			viewTodoList.initEventHandler('addTodoListItem', addTodoListItemEventHandler);
+		function completeTodoListItemEventHandler(e) {
+			completeTodoListItem.execute(e.index, e.isChecked);
+			render();
 		}
 		
+		function initEventHandlers() {
+			viewTodoList.initEventHandler('addTodoListItem', addTodoListItemEventHandler);
+			viewTodoList.initEventHandler('completeTodoListItem', completeTodoListItemEventHandler);
+		}
+		
+		function initDependencies(todoList) {
+			addTodoListItem = addTodoListItemCreator.create(todoList);
+			completeTodoListItem = completeTodoListItemCreator.create(todoList);
+		}
+		
+		function bindModelData(todoList) {
+			view.getViewData().data.todoList = todoList.toArray();
+		}
 		
 		viewTodoList.execute = function () {
 			var todoList = getTodoList.execute();
-			addTodoListItem = addTodoListItemCreator.create(todoList, todoListItemCreator);
-			view.getViewData().data.todoList = todoList.toArray();
+			initDependencies(todoList);
+			bindModelData(todoList);
 			render();
 			initEventHandlers();
 		};
