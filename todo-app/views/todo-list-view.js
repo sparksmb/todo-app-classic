@@ -48,12 +48,23 @@ app.view.todoListView = {
 			});
 		}
 		
-		function initMarkCompleted() {
+		function bindEditItemAction() {
+			$('.col2 .todo-text').click(function (e) {
+				var todoTextElement = e.target,
+					text = todoTextElement.textContent;
+				
+				todoTextElement.innerHTML = '<input type="text" id="editItemTextbox" value="' + text + '" />';
+				$('#editItemTextbox').blur(function (e) {
+					var newText = $('#editItemTextbox').val();
+					todoTextElement.innerHTML = newText;
+				});
+			});
 		}
 		
 		function init() {
 			bindAddItemAction();
 			bindMarkCompletedAction();
+			bindEditItemAction();
 			$('#addItemTextbox').focus();
 		}
 		
