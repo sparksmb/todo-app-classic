@@ -8,17 +8,17 @@
 	<tr>
 		<td class="col col1"></td>
 		<td class="col col2 status">
-			{{todoList.length}} items left
+			{{todoList.itemsLeft}} items left
 			<a href="#edit">Edit</a>
 		</td>
 	</tr>
 	{{#todoList}}
 	<tr>
 		<td class="col col1">
-			<input type="checkbox" {{#isCompleted}}checked{{/isCompleted}} />
+			<input id="chkbox-{{index}}" type="checkbox" {{#isCompleted}}checked{{/isCompleted}} />
 		</td>
 		<td class="col col2">
-			<label class="todo-text">{{text}}</label>
+			<label id="text-{{index}}" class="todo-text">{{text}}</label>
 		</td>
 	</tr>
 	{{/todoList}}
