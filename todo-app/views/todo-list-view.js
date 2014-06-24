@@ -18,6 +18,22 @@ app.view.todoListView = {
 			});
 		}
 		
+		function endEditItemMode(element) {
+			var newText = $('#editItemTextbox').val();
+			element.innerHTML = newText;
+			$('#addItemTextbox').focus();
+		}
+		
+		function detectEnterKeyPress(e, element) {
+			if (e.keyCode === 13) {
+				if (e.target.id === 'addItemTextbox') {
+					sendAddItemEvent(e.target.value);
+				} else {
+					endEditItemMode(element);
+				}
+			}
+		}
+		
 		function sendCompleteItemEvent(index, isChecked) {
 			$('#todo-app').trigger({
 				type: 'completeTodoListItem',
@@ -27,10 +43,8 @@ app.view.todoListView = {
 		}
 		
 		function bindAddItemAction() {
-			$('#addItemTextbox').bind('keypress', function (e) {
-				if (e.keyCode === 13) {
-					sendAddItemEvent(this.value);
-				}
+			$('#addItemTextbox').bind('keydown', function (e) {
+				detectEnterKeyPress(e);
 			});
 		}
 		
@@ -43,8 +57,22 @@ app.view.todoListView = {
 			$("input[type='checkbox']").click(function (e) {
 				var index = getIndexFromId(e.target.id),
 					isChecked = e.target.checked;
-				//alert(getIndexFromId(index) + ', ' + isChecked);
+				
 				sendCompleteItemEvent(index, isChecked);
+			});
+		}
+		
+		function startEditItemMode(element, text) {
+			element.innerHTML = '<input type="text" id="editItemTextbox" value="' + text + '" />';
+			
+			/*if (!element.onkeydown) {
+				element.onkeydown = function (e) {
+					detectEnterKeyPress(e, element);
+				};
+			}*/
+			
+			$('#editItemTextbox').blur(function (e) {
+				endEditItemMode(element);
 			});
 		}
 		
@@ -53,11 +81,7 @@ app.view.todoListView = {
 				var todoTextElement = e.target,
 					text = todoTextElement.textContent;
 				
-				todoTextElement.innerHTML = '<input type="text" id="editItemTextbox" value="' + text + '" />';
-				$('#editItemTextbox').blur(function (e) {
-					var newText = $('#editItemTextbox').val();
-					todoTextElement.innerHTML = newText;
-				});
+				startEditItemMode(todoTextElement, text);
 			});
 		}
 		
@@ -92,7 +116,7 @@ app.view.todoListView = {
 			preProcessItemsForRendering();
 			Object.getPrototypeOf(todoListView).render(); //baseObj.render()
 		};
-		
+				
 		return todoListView;
 	}
 };
