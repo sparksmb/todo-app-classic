@@ -5,11 +5,13 @@ app.usecase.viewTodoList = {
 					   saveTodoList,
 					   todoListItemCreator,
 					   addTodoListItemCreator,
-					   completeTodoListItemCreator) {
+					   completeTodoListItemCreator,
+					   editTodoListItemCreator) {
 		'use strict';
 		var viewTodoList = Object.create(app.usecase.usecaseBase.create()),
 			addTodoListItem,
-			completeTodoListItem;
+			completeTodoListItem,
+			editTodoListItem;
 		
 		function render() {
 			view.render();
@@ -22,6 +24,11 @@ app.usecase.viewTodoList = {
 			render();
 		}
 		
+		function editTodoListItemEventHandler(e) {
+			editTodoListItem.execute(e.oldText, e.newText);
+			render();
+		}
+		
 		function completeTodoListItemEventHandler(e) {
 			completeTodoListItem.execute(e.index, e.isChecked);
 			render();
@@ -29,12 +36,14 @@ app.usecase.viewTodoList = {
 		
 		function initEventHandlers() {
 			viewTodoList.initEventHandler('addTodoListItem', addTodoListItemEventHandler);
+			viewTodoList.initEventHandler('editTodoListItem', editTodoListItemEventHandler);
 			viewTodoList.initEventHandler('completeTodoListItem', completeTodoListItemEventHandler);
 		}
 		
 		function initDependencies(todoList) {
 			addTodoListItem = addTodoListItemCreator.create(todoList);
 			completeTodoListItem = completeTodoListItemCreator.create(todoList);
+			editTodoListItem = editTodoListItemCreator.create(todoList);
 		}
 		
 		function bindModelData(todoList) {

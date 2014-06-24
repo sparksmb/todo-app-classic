@@ -10,7 +10,8 @@ app.main.run = function () {
 		saveTodoList = app.usecase.saveTodoList.create(storage, todoList),
 		todoListItemCreator = app.entity.todoListItem,
 		addTodoListItemCreator = app.usecase.addTodoListItem,
-		completeTodoListItemCreator = app.usecase.completeTodoListItem;
+		completeTodoListItemCreator = app.usecase.completeTodoListItem,
+		editTodoListItemCreator = app.usecase.editTodoListItem;
 	
 	viewTodoList = app.usecase.viewTodoList.create(
 		todoListView,
@@ -18,7 +19,8 @@ app.main.run = function () {
 		saveTodoList,
 		todoListItemCreator,
 		addTodoListItemCreator,
-		completeTodoListItemCreator
+		completeTodoListItemCreator,
+		editTodoListItemCreator
 	);
 	
 	viewTodoList.execute();

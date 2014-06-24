@@ -18,9 +18,18 @@ app.view.todoListView = {
 			});
 		}
 		
-		function endEditItemMode(element) {
+		function sendEditItemEvent(oldText, newText) {
+			$('#todo-app').trigger({
+				type: 'editTodoListItem',
+				oldText: oldText,
+				newText: newText
+			});
+		}
+		
+		function endEditItemMode(element, oldText) {
 			var newText = $('#editItemTextbox').val();
 			element.innerHTML = newText;
+			sendEditItemEvent(oldText, newText);
 			$('#addItemTextbox').focus();
 		}
 		
@@ -72,7 +81,7 @@ app.view.todoListView = {
 			}*/
 			
 			$('#editItemTextbox').blur(function (e) {
-				endEditItemMode(element);
+				endEditItemMode(element, text);
 			});
 		}
 		

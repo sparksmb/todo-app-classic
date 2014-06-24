@@ -5,8 +5,11 @@ app.usecase.editTodoListItem = {
 		var editTodoListItem;
 		
 		editTodoListItem = {
-			execute: function () {
-				
+			execute: function (oldText, newText) {
+				var item = todoList.find(function (item) {
+					return item.text === oldText;
+				});
+				item.text = newText;
 			}
 		};
 		
