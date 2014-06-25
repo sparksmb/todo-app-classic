@@ -11,7 +11,8 @@ app.main.run = function () {
 		todoListItemCreator = app.entity.todoListItem,
 		addTodoListItemCreator = app.usecase.addTodoListItem,
 		completeTodoListItemCreator = app.usecase.completeTodoListItem,
-		editTodoListItemCreator = app.usecase.editTodoListItem;
+		editTodoListItemCreator = app.usecase.editTodoListItem,
+		filterTodoListCreator = app.usecase.filterTodoList;
 	
 	viewTodoList = app.usecase.viewTodoList.create(
 		todoListView,
@@ -20,7 +21,8 @@ app.main.run = function () {
 		todoListItemCreator,
 		addTodoListItemCreator,
 		completeTodoListItemCreator,
-		editTodoListItemCreator
+		editTodoListItemCreator,
+		filterTodoListCreator
 	);
 	
 	viewTodoList.execute();

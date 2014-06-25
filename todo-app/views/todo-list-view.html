@@ -15,10 +15,10 @@
 	{{#todoList}}
 	<tr>
 		<td class="col col1">
-			<input id="chkbox-{{index}}" type="checkbox" {{#isCompleted}}checked{{/isCompleted}} />
+			<input id="chkbox-{{id}}" type="checkbox" {{#isCompleted}}checked{{/isCompleted}} />
 		</td>
 		<td class="col col2">
-			<label id="text-{{index}}" class="todo-text">{{text}}</label>
+			<label id="text-{{id}}" class="todo-text">{{text}}</label>
 		</td>
 	</tr>
 	{{/todoList}}
@@ -35,9 +35,9 @@
 		
 	<tr>
 		<td colspan="2" class="footer">
-			<div id="all-filter" class="filter"><a href="#all">All</a></div>
-			<div id="active-filter" class="filter"><a href="#active">Active</a></div>
-			<div id="completed-filter" class="filter"><a href="#completed">Completed</a></div>
+			<div id="filter-all" class="filter"><a href="#all">All</a></div>
+			<div id="filter-active" class="filter"><a href="#active">Active</a></div>
+			<div id="filter-completed" class="filter"><a href="#completed">Completed</a></div>
 		</td>
 	</tr>
 </table>

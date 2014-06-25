@@ -6,14 +6,25 @@ app.usecase.viewTodoList = {
 					   todoListItemCreator,
 					   addTodoListItemCreator,
 					   completeTodoListItemCreator,
-					   editTodoListItemCreator) {
+					   editTodoListItemCreator,
+					   filterTodoListCreator) {
 		'use strict';
 		var viewTodoList = Object.create(app.usecase.usecaseBase.create()),
+			todoList,
 			addTodoListItem,
 			completeTodoListItem,
-			editTodoListItem;
+			editTodoListItem,
+			filterTodoList,
+			filterStatus;
+		
+		function bindModelData(todoList) {
+			var filteredList = filterTodoList.execute(filterStatus);
+			filteredList.itemsLeft = todoList.itemsLeft;
+			view.getViewData().data.todoList = filteredList;
+		}
 		
 		function render() {
+			bindModelData(todoList);
 			view.render();
 			view.initEventHandlers();
 		}
@@ -30,7 +41,12 @@ app.usecase.viewTodoList = {
 		}
 		
 		function completeTodoListItemEventHandler(e) {
-			completeTodoListItem.execute(e.index, e.isChecked);
+			completeTodoListItem.execute(e.id, e.isChecked);
+			render();
+		}
+		
+		function filterTodoListEventHandler(e) {
+			filterStatus = e.filterStatus;
 			render();
 		}
 		
@@ -38,22 +54,20 @@ app.usecase.viewTodoList = {
 			viewTodoList.initEventHandler('addTodoListItem', addTodoListItemEventHandler);
 			viewTodoList.initEventHandler('editTodoListItem', editTodoListItemEventHandler);
 			viewTodoList.initEventHandler('completeTodoListItem', completeTodoListItemEventHandler);
+			viewTodoList.initEventHandler('filterTodoList', filterTodoListEventHandler);
 		}
 		
 		function initDependencies(todoList) {
 			addTodoListItem = addTodoListItemCreator.create(todoList);
 			completeTodoListItem = completeTodoListItemCreator.create(todoList);
 			editTodoListItem = editTodoListItemCreator.create(todoList);
-		}
-		
-		function bindModelData(todoList) {
-			view.getViewData().data.todoList = todoList.toArray();
+			filterTodoList = filterTodoListCreator.create(todoList);
 		}
 		
 		viewTodoList.execute = function () {
-			var todoList = getTodoList.execute();
+			todoList = getTodoList.execute();
+			filterStatus = filterStatus || todoList.ALL;
 			initDependencies(todoList);
-			bindModelData(todoList);
 			render();
 			initEventHandlers();
 		};

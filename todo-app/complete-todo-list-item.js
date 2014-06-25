@@ -5,11 +5,11 @@ app.usecase.completeTodoListItem = {
 		var completeTodoListItem;
 		
 		completeTodoListItem = {
-			execute: function (index, isChecked) {
+			execute: function (id, isChecked) {
 				if (isChecked) {
-					todoList.markCompleted(index);
+					todoList.markCompleted(id);
 				} else {
-					todoList.markUncompleted(index);
+					todoList.markUncompleted(id);
 				}
 			}
 		};

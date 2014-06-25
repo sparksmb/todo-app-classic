@@ -12,8 +12,23 @@ app.entity.todoList = {
 		}
 		
 		function init() {
-			var items = todoListItems || [];
-			util.forEach(items, createTodoListItem);
+			var i,
+				completed = 0,
+				items = todoListItems || [],
+				item,
+				len = items.length;
+			
+			for (i = 0; i < len; i += 1) {
+				item = todoListItem.create(items[i]);
+				item.id = i;
+				if (item.isCompleted) {
+					completed += 1;
+				}
+				todoList.add(item);
+			}
+			
+			todoList.itemsLeft = len - completed;
+			
 			return todoList;
 		}
 		
@@ -36,7 +51,7 @@ app.entity.todoList = {
 		todoList.ACTIVE = 1;
 		todoList.ALL = 2;
 		todoList.COMPLETED = 3;
-		
+		todoList.itemsLeft = null;
 		todoList.filter = function (itemStatus) {
 			if (itemStatus === todoList.ACTIVE) {
 				return filterActive();
@@ -49,10 +64,18 @@ app.entity.todoList = {
 		
 		todoList.markCompleted = function (index) {
 			todoList.items[index].markCompleted();
+			todoList.itemsLeft -= 1;
 		};
 		
 		todoList.markUncompleted = function (index) {
 			todoList.items[index].markUncompleted();
+			todoList.itemsLeft += 1;
+		};
+		
+		todoList.add = function (item) {
+			var index = Object.getPrototypeOf(todoList).add(item);
+			todoList.items[index].id = index;
+			todoList.itemsLeft += 1;
 		};
 		
 		return init();

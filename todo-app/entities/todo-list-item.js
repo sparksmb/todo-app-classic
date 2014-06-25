@@ -5,6 +5,7 @@ app.entity.todoListItem = {
 		var todoListItem;
 		
 		todoListItem = {
+			id: null,
 			text: data.text || '',
 			isCompleted: data.isCompleted || false,
 			markCompleted: function () {

@@ -59,18 +59,15 @@ input[type='text']:focus {
 .footer div {
 	display: inline;
 }
+
 .filter {
 	width: 199px;
 	text-align: center;
 }
-#all-filter {
+#filter-all, #filter-active {
 	float: left;
 }
 
-#active-filter {
-	float: left;
-}
-
-#completed-filter {
+#filter-completed {
 	float: right;
 }

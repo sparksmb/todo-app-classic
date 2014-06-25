@@ -11,6 +11,8 @@ app.view.todoListView = {
 			},
 			todoListView = Object.create(app.view.htmlView.create(xhr, viewData));
 		
+		/************** SEND EVENTS ******************************/
+		
 		function sendAddItemEvent(text) {
 			$('#todo-app').trigger({
 				type: 'addTodoListItem',
@@ -26,49 +28,33 @@ app.view.todoListView = {
 			});
 		}
 		
+		function sendCompleteItemEvent(id, isChecked) {
+			$('#todo-app').trigger({
+				type: 'completeTodoListItem',
+				id: id,
+				isChecked: isChecked
+			});
+		}
+		
+		function sendFilterStatusEvent(filterStatus) {
+			$('#todo-app').trigger({
+				type: 'filterTodoList',
+				filterStatus: filterStatus
+			});
+		}
+		
+		/***************** UI STUFF ******************************/
+		
+		function parseId(id) {
+			var tokens = id.split('-');
+			return parseInt(tokens[tokens.length - 1], 10);
+		}
+		
 		function endEditItemMode(element, oldText) {
 			var newText = $('#editItemTextbox').val();
 			element.innerHTML = newText;
 			sendEditItemEvent(oldText, newText);
 			$('#addItemTextbox').focus();
-		}
-		
-		function detectEnterKeyPress(e, element) {
-			if (e.keyCode === 13) {
-				if (e.target.id === 'addItemTextbox') {
-					sendAddItemEvent(e.target.value);
-				} else {
-					endEditItemMode(element);
-				}
-			}
-		}
-		
-		function sendCompleteItemEvent(index, isChecked) {
-			$('#todo-app').trigger({
-				type: 'completeTodoListItem',
-				index: index,
-				isChecked: isChecked
-			});
-		}
-		
-		function bindAddItemAction() {
-			$('#addItemTextbox').bind('keydown', function (e) {
-				detectEnterKeyPress(e);
-			});
-		}
-		
-		function getIndexFromId(id) {
-			var tokens = id.split('-');
-			return parseInt(tokens[tokens.length - 1], 10);
-		}
-		
-		function bindMarkCompletedAction() {
-			$("input[type='checkbox']").click(function (e) {
-				var index = getIndexFromId(e.target.id),
-					isChecked = e.target.checked;
-				
-				sendCompleteItemEvent(index, isChecked);
-			});
 		}
 		
 		function startEditItemMode(element, text) {
@@ -85,6 +71,32 @@ app.view.todoListView = {
 			});
 		}
 		
+		function detectEnterKeyPress(e, element) {
+			if (e.keyCode === 13) {
+				if (e.target.id === 'addItemTextbox') {
+					sendAddItemEvent(e.target.value);
+				} else {
+					endEditItemMode(element);
+				}
+			}
+		}
+		
+		/************** BINDING ******************************/
+		
+		function bindMarkCompletedAction() {
+			$("input[type='checkbox']").click(function (e) {
+				var id = parseId(e.target.id),
+					isChecked = e.target.checked;
+				sendCompleteItemEvent(id, isChecked);
+			});
+		}
+		
+		function bindAddItemAction() {
+			$('#addItemTextbox').bind('keydown', function (e) {
+				detectEnterKeyPress(e);
+			});
+		}
+		
 		function bindEditItemAction() {
 			$('.col2 .todo-text').click(function (e) {
 				var todoTextElement = e.target,
@@ -94,27 +106,28 @@ app.view.todoListView = {
 			});
 		}
 		
+		function bindFilterActions() {
+			$('#filter-active').click(function (e) {
+				sendFilterStatusEvent(1);
+			});
+			
+			$('#filter-all').click(function (e) {
+				sendFilterStatusEvent(2);
+			});
+			
+			$('#filter-completed').click(function (e) {
+				sendFilterStatusEvent(3);
+			});
+		}
+		
+		/*************** RENDER STUFF ******************/
+		
 		function init() {
 			bindAddItemAction();
 			bindMarkCompletedAction();
 			bindEditItemAction();
+			bindFilterActions();
 			$('#addItemTextbox').focus();
-		}
-		
-		function preProcessItemsForRendering() {
-			var i,
-				completed = 0,
-				todoItems = viewData.data.todoList,
-				len = todoItems.length;
-			
-			for (i = 0; i < len; i += 1) {
-				if (todoItems[i].isCompleted) {
-					completed += 1;
-				}
-				todoItems[i].index = i;//expose index as a property
-			}
-			
-			todoItems.itemsLeft = len - completed;
 		}
 		
 		todoListView.initEventHandlers = function () {
@@ -122,7 +135,6 @@ app.view.todoListView = {
 		};
 		
 		todoListView.render = function () {
-			preProcessItemsForRendering();
 			Object.getPrototypeOf(todoListView).render(); //baseObj.render()
 		};
 				
