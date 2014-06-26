@@ -32,16 +32,19 @@ app.usecase.viewTodoList = {
 		function addTodoListItemEventHandler(e) {
 			var item = todoListItemCreator.create({ text: e.text });
 			addTodoListItem.execute(item);
+			saveTodoList.execute(todoList);
 			render();
 		}
 		
 		function editTodoListItemEventHandler(e) {
 			editTodoListItem.execute(e.oldText, e.newText);
+			saveTodoList.execute(todoList);
 			render();
 		}
 		
 		function completeTodoListItemEventHandler(e) {
 			completeTodoListItem.execute(e.id, e.isChecked);
+			saveTodoList.execute(todoList);
 			render();
 		}
 		
@@ -63,7 +66,7 @@ app.usecase.viewTodoList = {
 			editTodoListItem = editTodoListItemCreator.create(todoList);
 			filterTodoList = filterTodoListCreator.create(todoList);
 		}
-		
+		//[{"text":"Eggs","isCompleted":true},{"text":"Milk","isCompleted":false},{"text":"Apples","isCompleted":false}];
 		viewTodoList.execute = function () {
 			todoList = getTodoList.execute();
 			filterStatus = filterStatus || todoList.ALL;

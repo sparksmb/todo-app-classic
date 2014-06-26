@@ -1,14 +1,15 @@
 /*global app */
 app.usecase.saveTodoList = {
-	create: function (storage, todoList) {
+	create: function (storage) {
 		'use strict';
 		var saveTodoList;
 		
 		saveTodoList = {
-			execute: function () {
-				return storage.update(
-					JSON.stringify(todoList.toArray())
-				);
+			execute: function (todoList) {
+				return storage.update({
+					operationName: 'FetchTodoList',
+					data: JSON.stringify(todoList.toArray())
+				});
 			}
 		};
 		
