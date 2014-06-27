@@ -15,7 +15,8 @@ app.main.run = function () {
 	'use strict';
 	var viewTodoList,
 		xhr = app.entity.xhr.create(),
-		storage = app.entity.webStorage.create(),
+		webStorageCreator = app.entity.webStorage,
+		storage = app.entity.todoListStorageAdapter.create(webStorageCreator),
 		todoListView = app.view.todoListView.create(xhr),
 		todoList = app.entity.todoList,
 		getTodoList = app.usecase.getTodoList.create(storage, todoList),

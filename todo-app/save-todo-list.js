@@ -7,7 +7,7 @@ app.usecase.saveTodoList = {
 		saveTodoList = {
 			execute: function (todoList) {
 				return storage.update({
-					operationName: 'FetchTodoList',
+					operationName: 'UpdateTodoList',
 					data: JSON.stringify(todoList.toArray())
 				});
 			}
