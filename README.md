@@ -15,3 +15,5 @@ MVC or various framework code.  What does this app do?  Well look in the folder 
 the files.  The file names indicate exactly what the app does.  The files that read like verbs are the
 use cases while the files that read like nouns are entities.  Entities are encapuslated business rules
 that can be reused across the enterprise while the use cases make up the features of the application.
+
+![Codeship Status for sparksmb/todo-app-classic](https://codeship.io/projects/7a3fea80-e392-0131-cdd9-56c78fe30c2d/status)
