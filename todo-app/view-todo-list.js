@@ -66,7 +66,7 @@ app.usecase.viewTodoList = {
 			editTodoListItem = editTodoListItemCreator.create(todoList);
 			filterTodoList = filterTodoListCreator.create(todoList);
 		}
-		//[{"text":"Eggs","isCompleted":true},{"text":"Milk","isCompleted":false},{"text":"Apples","isCompleted":false}];
+		
 		viewTodoList.execute = function () {
 			todoList = getTodoList.execute();
 			filterStatus = filterStatus || todoList.ALL;
