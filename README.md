@@ -7,7 +7,7 @@ code that I can piviot off of to better understand many of the new concepts and 
 building single page web apps in Javascript.  Such concepts include responsive design, mobile
 optimization (touch events), modularity (AMD), compiling to native devices (PhoneGap), and 
 experimenting with the various MV* Javascript frameworks.  I want to understand what the
-challenges and trade-offs are around the promise of HTML5's "Write once, run anywhere." 
+challenges and trade-offs of HTML5's promise "Write once, run anywhere." 
 
 This app features a basic clean architecture evangelized by Robert C. Martin (aka Uncle Bob).  All
 the use cases are visible at the highest level of the architecture not buried behind a bunch of 
