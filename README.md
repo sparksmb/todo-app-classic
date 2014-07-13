@@ -16,4 +16,4 @@ the files.  The file names indicate exactly what the app does.  The files that r
 use cases while the files that read like nouns are entities.  Entities are encapuslated business rules
 that can be reused across the enterprise while the use cases encapsulate the business rules specific to the  application.
 
-![todo app class diagram](https://github.com/sparksmb/todo-app-classic/blob/master/doc/todo-app-classic.png)
+![todo app class diagram](https://raw.githubusercontent.com/sparksmb/todo-app-classic/master/doc/todo-app-classic.png)
