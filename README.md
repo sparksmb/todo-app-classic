@@ -15,3 +15,5 @@ MVC or various framework code.  What does this app do?  Well look in the todo-ap
 the files.  The file names indicate exactly what the app does.  The files that read like verbs are the
 use cases while the files that read like nouns are entities.  Entities are encapuslated business rules
 that can be reused across the enterprise while the use cases encapsulate the business rules specific to the  application.
+
+![todo app class diagram](https://raw.githubusercontent.com/sparksmb/todo-app-classic/master/doc/todo-app-classic.png)
